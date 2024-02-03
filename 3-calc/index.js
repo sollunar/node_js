@@ -1,10 +1,15 @@
-const adder = require("./add.js");
+const { availableOperations, calculate } = require("./calculator.js");
 
-const [, , number1, number2, operation] = process.argv;
+const [, , num1, num2, operation] = process.argv;
 
-
-if (operation === "add") {
-    console.log(adder(number1, number2))
-} else {
-    console.log("To perform add input: node index.js num1 num2 add")
+if (!availableOperations.includes(operation)) {
+  console.log(`Available operations are: ${availableOperations.join(", ")}`);
+  return;
 }
+
+if (isNaN(num1) || isNaN(num2)) {
+  console.log("Arguments can only be valid numbers");
+  return;
+}
+
+console.log(calculate(parseFloat(num1), parseFloat(num2), operation));
